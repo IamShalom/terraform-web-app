@@ -1,4 +1,2 @@
 variable "domain_name" {}
-variable "subject_alternative_names" { 
-    type    = set(string)
-}
+variable "subject_alternative_names" {}

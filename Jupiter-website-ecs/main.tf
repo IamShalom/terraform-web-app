@@ -77,5 +77,11 @@ module "ecs" {
   alb_target_group_arn         = module.alb.alb_target_group_arn
 }
 
+# create app auto scaling group
+module "asg" {
+  source = "../Modules/asg"
+  ecs_cluster_name = module.asg.ecs_cluster_name
+  ecs_service_name = module.asg.ecs_service_name
+}
 
 
