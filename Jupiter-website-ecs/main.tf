@@ -48,7 +48,7 @@ module "ecs_tasks_execution_role" {
 module "acm" {
   source                    = "../Modules/acm"
   domain_name               = var.domain_name
-  subject_alternative_names = var.subject_alternative_names
+  subject_alternative_names = var.alternative_names
 
 }
 
@@ -64,6 +64,18 @@ module "alb" {
   certificate_arn = module.acm.certificate_arn
 }
 
+# create ecs service
+module "ecs" {
+  source = "../Modules/ecs"
+  project_name = module.vpc.project_name
+  ecs-tasks-execution-role-arn = module.ecs_tasks_execution_role.ecs-tasks-execution-role-arn
+  container_image = var.container_image
+  region = module.vpc.region
+  private_app_subnet_az1_id = module.vpc.private_app_subnet_az1_id
+  private_app_subnet_az2_id = module.vpc.private_app_subnet_az2_id
+  ecs_security_group_id = module.security-groups.ecs_security_group_id
+  alb_target_group_arn = module.alb.alb_target_group_arn
+}
 
 
 
