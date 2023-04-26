@@ -1,2 +1,2 @@
 variable "domain_name" {}
-variable "alternative_names" {}
+variable "subject_alternative_names" {}
