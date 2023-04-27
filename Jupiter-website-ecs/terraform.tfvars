@@ -10,5 +10,6 @@ private_data_subnet_az2_cidr = "10.0.5.0/24"
 domain_name                  = "shallyscloud.com"
 subject_alternative_names    = "*.shallyscloud.com"
 container_image              = "ghost:5.40.2"
+record_name                  = "www"
 
 

@@ -1,13 +1,13 @@
 # create application load balancer
 resource "aws_lb" "application_load_balancer" {
-  name               = "${var.project_name}-alb"
-  internal           = false
-  load_balancer_type = "application"
-  security_groups    = [var.alb_security_group_id]
-  subnets            = [var.public_subnet_az1_id, var.public_subnet_az2_id]
+  name                       = "${var.project_name}-alb"
+  internal                   = false
+  load_balancer_type         = "application"
+  security_groups            = [var.alb_security_group_id]
+  subnets                    = [var.public_subnet_az1_id, var.public_subnet_az2_id]
   enable_deletion_protection = false
 
-  tags   = {
+  tags = {
     Name = "${var.project_name}-alb"
   }
 }
@@ -54,11 +54,11 @@ resource "aws_lb_listener" "alb_http_listener" {
 
 # create a listener on port 443 with forward action
 resource "aws_lb_listener" "alb_https_listener" {
-  load_balancer_arn  = aws_lb.application_load_balancer.arn
-  port               = 443
-  protocol           = "HTTPS"
-  ssl_policy         = "ELBSecurityPolicy-2016-08"
-  certificate_arn    = var.certificate_arn
+  load_balancer_arn = aws_lb.application_load_balancer.arn
+  port              = 443
+  protocol          = "HTTPS"
+  ssl_policy        = "ELBSecurityPolicy-2016-08"
+  certificate_arn   = var.certificate_arn
 
   default_action {
     type             = "forward"

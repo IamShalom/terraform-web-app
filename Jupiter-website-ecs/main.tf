@@ -79,9 +79,21 @@ module "ecs" {
 
 # create app auto scaling group
 module "asg" {
-  source = "../Modules/asg"
+  source           = "../Modules/asg"
   ecs_cluster_name = module.asg.ecs_cluster_name
   ecs_service_name = module.asg.ecs_service_name
 }
 
+# create route-53 record
+module "route-53" {
+  source                             = "../Modules/route-53"
+  domain_name                        = module.acm.domain_name
+  record_name                        = var.record_name
+  application_load_balancer_dns_name = module.alb.application_load_balancer_dns_name
+  application_load_balancer_zone_id  = module.alb.application_load_balancer_zone_id
+}
 
+# output the url for the website
+output "website_url" {
+  value = join("", ["https://", var.record_name, ".", var.domain_name])
+}
